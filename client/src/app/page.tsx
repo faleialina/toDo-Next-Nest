@@ -11,7 +11,7 @@ const Main: React.FC = () => {
 	const [redirect, dispatchRedirect] = useReducer(redirectReducer, '')
 
 	async function authUser() {
-		const result = await axios.post('http://localhost:5000/api/auth', inp)
+		const result = await axios.post('http://localhost:5000/auth/authenticate', inp)
 		console.log(result.data)
 	}
 

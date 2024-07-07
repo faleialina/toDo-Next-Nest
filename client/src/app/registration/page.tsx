@@ -9,7 +9,8 @@ const Registration: React.FC = () => {
 
 	const array = ['name', 'surname', 'email', 'pwd']
 	async function show() {
-		const result = await axios.post('http://localhost:5000/api/reg', inp)
+		console.log(inp)
+		const result = await axios.post('http://localhost:5000/auth/register', inp)
 		console.log(result.data)
 	}
 
