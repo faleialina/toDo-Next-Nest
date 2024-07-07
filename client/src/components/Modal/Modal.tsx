@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ModalProps } from "../../interfaces";
 import style from "./modal.module.scss";
 
-export default function Modal({ setOpen, task }: ModalProps) {
+const Modal: React.FC<ModalProps> = ({ setOpen, task }: ModalProps) => {
   const [updateItemText, setUpdateItemText] = useState({
     taitle: "",
     description: "",
@@ -61,3 +61,4 @@ export default function Modal({ setOpen, task }: ModalProps) {
     </div>
   );
 }
+export default  Modal

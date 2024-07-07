@@ -1,6 +1,7 @@
 import Link from 'next/link'
+import routes from '../Routes/routes'
 import style from './header.module.scss'
-export default function Header() {
+const Header: React.FC = () => {
 	return (
 		<div className={style.colorinfo}>
 			<div className={style.colorNav}>
@@ -9,18 +10,9 @@ export default function Header() {
 						<h1>TO DO</h1>
 					</div>
 					<div className={style.elemNavig}>
-						<p>
-							<Link href='/'>Home</Link>
-						</p>
-						<p>
-							<Link href='/about'>About</Link>
-						</p>
-						<p>
-							<Link href='/registration'>Registration</Link>
-						</p>
-						<p>
-							<Link href='/authorization'>Authorization</Link>
-						</p>
+						{routes.map(item => (
+							<p key={item.name}>{<Link href={item.url}>{item.name}</Link>}</p>
+						))}
 					</div>
 					<button className={style.btn}>Exit</button>
 				</div>
@@ -28,3 +20,4 @@ export default function Header() {
 		</div>
 	)
 }
+export default Header

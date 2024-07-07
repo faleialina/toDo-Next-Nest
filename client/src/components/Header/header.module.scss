@@ -1,3 +1,13 @@
+$purple_color: #6c63ff;
+$white_color: #f9f9f7;
+
+
+@mixin input_btn($border, $br, $pad) {
+	display: block;
+	border: $border;
+	border-radius: $br;
+	padding: $pad;
+}
 .colorinfo {
 	background: #474747;
 	.colorNav {
@@ -28,12 +38,20 @@
 				gap: 40px;
 			}
 			.btn {
-				border-radius: 118px;
-				border: 1.5px solid var(--neutral-07,  #474747);
-				padding: 12px 24px;
-				color: var(--neutral-07, #474747);
-				text-align: right;
-				font: 700 16px Kanit;
+				@include input_btn(1px solid $purple_color, 5px, 10px 15px);
+				background-color: $purple_color;
+				color: $white_color;
+				font: 500 16px Kanit;
+				cursor: grab;
+				width: 110px;
+				text-align: center;
+
+				// border-radius: 118px;
+				// border: 1.5px solid var(--neutral-07,  #474747);
+				// padding: 12px 24px;
+				// color: var(--neutral-07, #474747);
+				// text-align: right;
+				// font: 700 16px Kanit;
 			}
 		}
 	}

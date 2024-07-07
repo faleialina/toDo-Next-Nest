@@ -1,231 +1,39 @@
 'use client'
+import Inputs from '@/components/Inputs/Inputs'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
-import Modal from '../components/Modal/Modal'
-import { iTask } from '../interfaces'
+import { useReducer, useState } from 'react'
+import redirectReducer from '../components/RedirectReducer/RedirectReducer'
 import style from './page.module.scss'
 
-export default function Main() {
-	const [task, setTask] = useState({ taitle: '', description: '' })
-	const [listTasks, setListTasks] = useState<iTask[]>([])
-	const [open, setOpen] = useState<boolean>(false)
-	const [active, setActive] = useState({
-		_id: '',
-		taitle: '',
-		description: '',
-		isCheck: false,
-	})
+const Main: React.FC = () => {
+	const [inp, setInp] = useState({})
+	const array = ['email', 'pwd']
+	const [redirect, dispatchRedirect] = useReducer(redirectReducer, '')
 
-	function swapCheckbox(index: number) {
-		const updatedTasks = [...listTasks]
-		updatedTasks[index].isCheck = !updatedTasks[index].isCheck
-		setListTasks(updatedTasks)
+	async function authUser() {
+		const result = await axios.post('http://localhost:5000/api/auth', inp)
+		console.log(result.data)
 	}
 
-	function changeInput(e: React.ChangeEvent<HTMLInputElement>) {
-		setTask({ ...task, [e.target.name]: e.target.value })
-	}
+	// const handleRedirectHome = () => {
+	// 	dispatchRedirect({ type: 'REDIRECT_HOME' })
+	// }
 
-	const addTask = async () => {
-		try {
-			const res = await axios.post('http://localhost:5000/task', task)
-			console.log(res)
-		} catch (err) {
-			console.log(err)
-		}
-	}
-	const getItemsList = async () => {
-		try {
-			const res = await axios.get('http://localhost:5000/task')
-			const listTaskCheck = res.data.map((el: iTask) => ({
-				...el,
-				isCheck: false,
-			}))
-			setListTasks(listTaskCheck)
-		} catch (err) {
-			console.log(err)
-		}
-	}
-
-	useEffect(() => {
-		getItemsList()
-	}, [])
-
-	const deleteItem = async (id: string) => {
-		try {
-			const res = await axios.delete(`http://localhost:5000/task/${id}`)
-			console.log(res)
-			const newListItems = listTasks.filter((item: any) => item._id !== id)
-			setListTasks(newListItems)
-		} catch (err) {
-			console.log(err)
-		}
-	}
-
+	// const handleRedirectRegistration = () => {
+	// 	dispatchRedirect({ type: 'REDIRECT_REGISTRATION' })
+	// }
 	return (
-		<>
-			<div className={style.wrapper}>
-				<h1>TODO LIST</h1>
-				<form className={style.header} onSubmit={() => addTask()}>
-					<input
-						type='text'
-						name='taitle'
-						placeholder='Create note...'
-						onChange={changeInput}
-						value={task?.taitle}
-					/>
-					<input
-						type='text'
-						name='description'
-						placeholder='Create description note...'
-						onChange={changeInput}
-						value={task?.description}
-					/>
-					<button type='submit'>CREATE</button>
-				</form>
-				{listTasks.length == 0 ? (
-					<div className={style.empty}>
-						<div className={style.image}></div>
-						<h2>Empty...</h2>
+		<div>
+			<div className={style.authpage}>
+				<div className={style.info}>
+					<h1>Authorization</h1>
+					<Inputs array={array} setInp={setInp} inp={inp} />
+					<div className={style.btn} onClick={authUser}>
+						Login
 					</div>
-				) : (
-					<div className={style.toDoListItems}>
-						{listTasks.map((item, index) => (
-							<div className={style.todoItemWrap} key={item._id}>
-								<div className={style.todoItem}>
-									<>
-										<input
-											type='checkbox'
-											key={index}
-											name={String(index)}
-											onChange={() => swapCheckbox(index)}
-											checked={item.isCheck}
-											className={style.form_checkbox}
-										/>
-										<p
-											className={
-												listTasks[index].isCheck ? style.checked : style.def
-											}
-										>
-											{item.taitle}
-										</p>
-										<p
-											className={
-												listTasks[index].isCheck ? style.checked : style.def
-											}
-										>
-											{item.description}
-										</p>
-
-										<button
-											className={style.updateItem}
-											onClick={() => {
-												setOpen(true)
-												setActive(listTasks[index])
-											}}
-										></button>
-
-										{open ? <Modal setOpen={setOpen} task={active} /> : null}
-
-										<button
-											className={style.deleteItem}
-											onClick={() => {
-												deleteItem(item._id)
-											}}
-										></button>
-									</>
-								</div>
-
-								<div className={style.line}></div>
-							</div>
-						))}
-					</div>
-				)}
+				</div>
 			</div>
-		</>
+		</div>
 	)
 }
-
-// return (
-//   <>
-//     <div className={style.wrapper}>
-//       <h1>TODO LIST</h1>
-//       <form className={style.header} onSubmit={() => addTask()}>
-//         <input
-//           type='text'
-//           name='taitle'
-//           placeholder='Create note...'
-//           onChange={changeInput}
-//           value={task?.taitle}
-//         />
-//         <input
-//           type='text'
-//           name='description'
-//           placeholder='Create description note...'
-//           onChange={changeInput}
-//           value={task?.description}
-//         />
-//         <button type='submit'>CREATE</button>
-//       </form>
-//       {listTasks.length == 0 ? (
-//         <div className={style.empty}>
-//           <div className={style.image}></div>
-//           <h2>Empty...</h2>
-//         </div>
-//       ) : (
-//         <div className={style.toDoListItems}>
-//           {listTasks.map((item, index) => (
-//             <div className={style.todoItemWrap}>
-//               <div className={style.todoItem}>
-//                 <>
-//                   <input
-//                     type='checkbox'
-//                     key={index}
-//                     name={String(index)}
-//                     onChange={() => swapCheckbox(index)}
-//                     checked={item.isCheck}
-//                     className={style.form_checkbox}
-//                   />
-//                   <p
-//                     className={
-//                       listTasks[index].isCheck ? style.checked : style.def
-//                     }
-//                   >
-//                     {item.taitle}
-//                   </p>
-//                   <p
-//                     className={
-//                       listTasks[index].isCheck ? style.checked : style.def
-//                     }
-//                   >
-//                     {item.description}
-//                   </p>
-
-//                   <button
-//                     className={style.updateItem}
-//                     onClick={() => {
-//                       setOpen(true)
-//                       setActive(listTasks[index])
-//                     }}
-//                   ></button>
-
-//                   {open ? <Modal setOpen={setOpen} task={active} /> : null}
-
-//                   <button
-//                     className={style.deleteItem}
-//                     onClick={() => {
-//                       deleteItem(item._id)
-//                     }}
-//                   ></button>
-//                 </>
-//               </div>
-
-//               <div className={style.line}></div>
-//             </div>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   </>
-// )
-// }
+export default Main

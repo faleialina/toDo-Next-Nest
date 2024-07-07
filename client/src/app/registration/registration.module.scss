@@ -1,3 +1,51 @@
-.main{
+$purple_color: #6c63ff;
+$white_color: #f9f9f7;
+$purple_ligth_color: #c3c1e5;
+
+@mixin flex($fd, $ai, $gap) {
 	display: flex;
+	flex-direction: $fd;
+	align-items: $ai;
+	gap: $gap;
+}
+
+@mixin input_btn($border, $br, $pad) {
+	display: block;
+	border: $border;
+	border-radius: $br;
+	padding: $pad;
+}
+.regpage {
+	@include flex(column, center, 0);
+	width: 750px;
+	margin: 0 auto;
+
+	.info {
+		@include flex(column, center, 30px);
+
+		h1 {
+			color: var(--primaty-black, #000);
+			font: 400 56px Kanit;
+		}
+
+		input {
+			@include input_btn(1px solid $purple_color, 5px, 10px 15px);
+			outline: none;
+			width: 520px;
+
+			&::placeholder {
+				color: $purple_ligth_color;
+				font: 500 16px Inter;
+			}
+		}
+		.btn {
+			@include input_btn(1px solid $purple_color, 5px, 10px 15px);
+			background-color: $purple_color;
+			color: $white_color;
+			font: 500 16px Kanit;
+			cursor: grab;
+			width: 110px;
+			text-align: center;
+		}
+	}
 }

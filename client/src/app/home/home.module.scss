@@ -1,0 +1,167 @@
+$purple_color: #6c63ff;
+$white_color: #f9f9f7;
+$purple_ligth_color: #c3c1e5;
+
+@mixin flex($fd, $ai, $gap) {
+	display: flex;
+	flex-direction: $fd;
+	align-items: $ai;
+	gap: $gap;
+}
+
+@mixin input_btn($border, $br, $pad) {
+	display: block;
+	border: $border;
+	border-radius: $br;
+	padding: $pad;
+}
+
+@mixin img() {
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.wrapper {
+	@include flex(column, center, 0);
+	width: 750px;
+	margin: 0 auto;
+
+	h1 {
+		color: black;
+		font: 500 26px Kanit;
+	}
+
+	.header {
+		@include flex(row, row, 15px);
+
+		input {
+			@include input_btn(1px solid $purple_color, 5px, 10px 15px);
+			outline: none;
+
+			&:nth-child(1) {
+				width: 256px;
+			}
+
+			&:nth-child(2) {
+				width: 389px;
+			}
+
+			&::placeholder {
+				color: $purple_ligth_color;
+				font: 500 16px Inter;
+			}
+		}
+
+		button {
+			@include input_btn(1px solid $purple_color, 5px, 10px 15px);
+			background-color: $purple_color;
+			color: $white_color;
+			font: 500 16px Kanit;
+			cursor: grab;
+		}
+	}
+
+	.empty {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+
+		margin-top: 40px;
+
+		.image {
+			background-image: url('../assets/Detective-check-footprint\ 1.svg');
+			@include img();
+			width: 221px;
+			height: 149px;
+		}
+
+		h2 {
+			color: rgb(37, 37, 37);
+			font: 400 20px Kanit;
+			text-transform: capitalize;
+			text-align: center;
+		}
+	}
+
+	.toDoListItems {
+		@include flex(column, center, 15px);
+
+		.todoItemWrap {
+			.todoItem {
+				@include flex(row, center, 15px);
+				width: 520px;
+
+				.form_checkbox {
+					width: 35px;
+					height: 35px;
+				}
+
+				.checked {
+					text-decoration: line-through;
+					&:nth-child(2) {
+						width: 256px;
+						color: rgb(203, 50, 50);
+						font: 500 20px Kanit;
+						text-transform: uppercase;
+					}
+
+					&:nth-child(3) {
+						width: 389px;
+						color: $purple_ligth_color;
+						font: 500 20px Kanit;
+						text-transform: uppercase;
+					}
+				}
+				.def {
+					&:nth-child(2) {
+						width: 256px;
+						color: black;
+						font: 500 20px Kanit;
+						text-transform: uppercase;
+					}
+
+					&:nth-child(3) {
+						width: 389px;
+						color: $purple_ligth_color;
+						font: 500 20px Kanit;
+						text-transform: uppercase;
+					}
+				}
+
+				.updateItem {
+					background-image: url(../assets/Change.svg);
+					@include img();
+					width: 18px;
+					height: 18px;
+					cursor: grab;
+					border: none;
+					background-color: $white_color;
+				}
+
+				.deleteItem {
+					background-image: url(../assets/Delete.svg);
+					@include img();
+					width: 18px;
+					height: 18px;
+					cursor: grab;
+					border: none;
+					background-color: $white_color;
+				}
+			}
+
+			.line {
+				background-image: url(../assets/Line.svg);
+				@include img();
+				height: 25px;
+			}
+		}
+	}
+
+	.updateForm {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+}
