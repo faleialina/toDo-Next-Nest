@@ -1,8 +1,6 @@
+import { Follower } from './entities/Follower';
+import { Task } from './entities/Task';
 import { User } from './entities/User';
-import { Message } from './entities/Message';
-
-const entities = [User, Message];
-
+const entities = [User, Task, Follower];
 export default entities;
-
-export { User, Message };
+export { Task, User, Follower };

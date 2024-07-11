@@ -1,11 +1,19 @@
 export interface iTask {
-    _id: string;
-    taitle: string;
-    description: string;
-    isCheck: boolean;
-};
+	id: string
+	title: string
+	description: string
+	isCheck: boolean
+}
 
 export interface ModalProps {
-    setOpen: (arg: boolean) => void;
-    task: iTask;
-};
+	setOpen: (arg: boolean) => void
+	task: iTask
+}
+
+export interface iUser {
+	id: string
+	email: string
+	name: string
+	surname: string
+	pwd: string
+}

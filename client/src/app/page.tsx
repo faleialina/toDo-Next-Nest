@@ -8,11 +8,22 @@ import style from './page.module.scss'
 const Main: React.FC = () => {
 	const [inp, setInp] = useState({})
 	const array = ['email', 'pwd']
+
 	const [redirect, dispatchRedirect] = useReducer(redirectReducer, '')
 
 	async function authUser() {
-		const result = await axios.post('http://localhost:5000/auth/authenticate', inp)
-		console.log(result.data)
+		try {
+			const result = await axios.post(
+				'http://localhost:5000/auth/authenticate',
+				inp
+			)
+			window.location.href=`/home/${result.data.id}`
+			console.log(result.data)
+			console.log('+')
+		} catch (error: any) {
+			console.log(error.message)
+			alert('Введены некорректные данные')
+		}
 	}
 
 	// const handleRedirectHome = () => {
@@ -28,6 +39,7 @@ const Main: React.FC = () => {
 				<div className={style.info}>
 					<h1>Authorization</h1>
 					<Inputs array={array} setInp={setInp} inp={inp} />
+
 					<div className={style.btn} onClick={authUser}>
 						Login
 					</div>
