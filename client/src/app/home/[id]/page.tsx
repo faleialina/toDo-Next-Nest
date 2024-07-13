@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Modal from '../../../components/Modal/Modal'
-import { iTask } from '../../../interfaces'
+import { iTask, iUser } from '../../../interfaces'
 import style from './home.module.scss'
 
 const Home: React.FC = () => {
@@ -23,7 +23,13 @@ const Home: React.FC = () => {
 		description: '',
 		isCheck: false,
 	})
-	const [userObj, setUserObj] = useState({})
+	const [userObj, setUserObj] = useState<iUser>({
+		id: '',
+		email: '',
+		name: '',
+		surname: '',
+		pwd: '',
+	})
 
 	async function authUser() {
 		const result = await axios.get(`http://localhost:5000/user/${dataId.id}`)
@@ -69,21 +75,13 @@ const Home: React.FC = () => {
 		console.log(res)
 		const newListItems = listTasks.filter((item: any) => item.id !== id)
 		setListTasks(newListItems)
-		// try {
-		// 	const res = await axios.delete(`http://localhost:5000/task/${id}`)
-		// 	console.log(res)
-		// 	const newListItems = listTasks.filter((item: any) => item._id !== id)
-		// 	setListTasks(newListItems)
-		// } catch (err) {
-		// 	console.log(err)
-		// }
 	}
 
 	return (
 		<>
 			<div className={style.wrapper}>
 				<h1>TODO LIST</h1>
-				<h1>{userObj.name}</h1>
+				<h1>user:{userObj.name}</h1>
 				<form className={style.header} onSubmit={() => addTask()}>
 					<input
 						type='text'

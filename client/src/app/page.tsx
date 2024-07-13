@@ -17,9 +17,7 @@ const Main: React.FC = () => {
 				'http://localhost:5000/auth/authenticate',
 				inp
 			)
-			window.location.href=`/home/${result.data.id}`
-			console.log(result.data)
-			console.log('+')
+			window.location.href = `/home/${result.data.id}`
 		} catch (error: any) {
 			console.log(error.message)
 			alert('Введены некорректные данные')

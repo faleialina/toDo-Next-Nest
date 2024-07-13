@@ -14,7 +14,9 @@ const Header: React.FC = () => {
 							<p key={item.name}>{<Link href={item.url}>{item.name}</Link>}</p>
 						))}
 					</div>
-					<button className={style.btn}>Exit</button>
+					<button className={style.btn}>
+						<Link href='/'>Exit</Link>
+					</button>
 				</div>
 			</div>
 		</div>

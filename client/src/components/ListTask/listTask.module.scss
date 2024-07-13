@@ -1,0 +1,83 @@
+$purple_color: #6c63ff;
+$white_color: #f9f9f7;
+$purple_ligth_color: #c3c1e5;
+
+@mixin flex($fd, $ai, $gap) {
+	display: flex;
+	flex-direction: $fd;
+	align-items: $ai;
+	gap: $gap;
+}
+
+@mixin input_btn($border, $br, $pad) {
+	display: block;
+	border: $border;
+	border-radius: $br;
+	padding: $pad;
+}
+
+@mixin img() {
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.wrapper {
+	@include flex(column, center, 0);
+	width: 750px;
+	margin: 0 auto;
+
+	h1 {
+		color: black;
+		font: 500 26px Kanit;
+	}
+
+	.empty {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+
+		margin-top: 40px;
+
+		h2 {
+			color: rgb(37, 37, 37);
+			font: 400 20px Kanit;
+			text-transform: capitalize;
+			text-align: center;
+		}
+	}
+
+	.toDoListItems {
+		@include flex(column, center, 15px);
+
+		.todoItemWrap {
+			.todoItem {
+				@include flex(row, center, 15px);
+				width: 520px;
+
+				.def {
+					&:nth-child(1) {
+						width: 256px;
+						color: black;
+						font: 500 20px Kanit;
+						text-transform: uppercase;
+					}
+
+					&:nth-child(2) {
+						width: 389px;
+						color: $purple_ligth_color;
+						font: 500 20px Kanit;
+						text-transform: uppercase;
+					}
+				}
+			}
+
+			.line {
+				background-image: url(../.././app/assets/Line.svg);
+				@include img();
+				height: 25px;
+			}
+		}
+	}
+}
