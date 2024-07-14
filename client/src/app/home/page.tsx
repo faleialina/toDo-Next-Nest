@@ -1,16 +1,17 @@
 'use client'
 import axios from 'axios'
-import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Modal from '../../../components/Modal/Modal'
-import { iTask, iUser } from '../../../interfaces'
+import Modal from '../../components/Modal/Modal'
+import { iTask } from '../../interfaces'
 import style from './home.module.scss'
 
 const Home: React.FC = () => {
-	const dataId = useParams()
+	const getParams: any = localStorage.getItem('userParams')
+	const userParams = JSON.parse(getParams)
+
 	const [task, setTask] = useState({
 		title: '',
-		user_id: `${dataId.id}`,
+		user_id: `${userParams.id}`,
 		description: '',
 	})
 
@@ -19,23 +20,11 @@ const Home: React.FC = () => {
 	const [active, setActive] = useState({
 		id: '',
 		title: '',
-		user_id: `${dataId.id}`,
+		user_id: `${userParams.id}`,
 		description: '',
 		isCheck: false,
 	})
-	const [userObj, setUserObj] = useState<iUser>({
-		id: '',
-		email: '',
-		name: '',
-		surname: '',
-		pwd: '',
-	})
 
-	async function authUser() {
-		const result = await axios.get(`http://localhost:5000/user/${dataId.id}`)
-
-		setUserObj(result.data)
-	}
 
 	function swapCheckbox(index: number) {
 		const updatedTasks = [...listTasks]
@@ -55,8 +44,7 @@ const Home: React.FC = () => {
 		}
 	}
 	const getItemsList = async () => {
-		const res = await axios.get(`http://localhost:5000/task/${dataId.id}`)
-		console.log(res)
+		const res = await axios.get(`http://localhost:5000/task/${userParams.id}`)
 
 		const listTaskCheck = res.data.map((el: iTask) => ({
 			...el,
@@ -66,13 +54,11 @@ const Home: React.FC = () => {
 	}
 
 	useEffect(() => {
-		authUser()
 		getItemsList()
 	}, [])
 
 	const deleteItem = async (id: string) => {
 		const res = await axios.delete(`http://localhost:5000/task/${id}`)
-		console.log(res)
 		const newListItems = listTasks.filter((item: any) => item.id !== id)
 		setListTasks(newListItems)
 	}
@@ -81,7 +67,7 @@ const Home: React.FC = () => {
 		<>
 			<div className={style.wrapper}>
 				<h1>TODO LIST</h1>
-				<h1>user:{userObj.name}</h1>
+				<h1>user:{userParams.name}</h1>
 				<form className={style.header} onSubmit={() => addTask()}>
 					<input
 						type='text'

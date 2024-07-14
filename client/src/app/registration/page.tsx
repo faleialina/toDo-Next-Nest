@@ -9,9 +9,14 @@ const Registration: React.FC = () => {
 
 	const array = ['name', 'surname', 'email', 'pwd']
 	async function show() {
-		console.log(inp)
-		const result = await axios.post('http://localhost:5000/auth/register', inp)
-		console.log(result.data)
+		try {
+			const result = await axios.post('http://localhost:5000/auth/register', inp)
+			localStorage.setItem('userParams', JSON.stringify(result.data))
+			window.location.href = `/home`
+		} catch (error: any) {
+			console.log(error.message)
+			alert('Введены некорректные данные')
+		}
 	}
 
 	return (

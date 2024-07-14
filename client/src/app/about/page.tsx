@@ -2,29 +2,18 @@
 import ListTask from '@/components/ListTask/ListTask'
 import { iUser } from '@/interfaces'
 import axios from 'axios'
-import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import style from './about.module.scss'
 
 const About: React.FC = () => {
-	const dataId = useParams()
+	const getParams: any = localStorage.getItem('userParams')
+	const userParams = JSON.parse(getParams)
+
 	const [listUsers, setListUsers] = useState<iUser[]>([])
-	const [userObj, setUserObj] = useState<iUser>({
-		id: '',
-		email: '',
-		name: '',
-		surname: '',
-		pwd: '',
-	})
+
 	const [follower, setFollower] = useState({})
 	const [active, setActive] = useState<boolean>(false)
-	const [showListTask, setShowListTask] = useState<boolean>(false)
-
-	async function authUser() {
-		const result = await axios.get(`http://localhost:5000/user/${dataId.id}`)
-
-		setUserObj(result.data)
-	}
+	const [showListTask, setShowListTask] = useState<any>({})
 
 	const getItemsList = async () => {
 		const res = await axios.get(`http://localhost:5000/user`)
@@ -34,21 +23,13 @@ const About: React.FC = () => {
 	const addFollower = async (follower_id: number) => {
 		setFollower({
 			...follower,
-			user_id: parseFloat(`${dataId.id}`),
+			user_id: parseFloat(`${userParams.id}`),
 			follower_id: follower_id,
 		})
 		const result = await axios.post(`http://localhost:5000/follower`, follower)
-		console.log(result)
-		console.log(follower)
-		console.log(follower_id)
-	}
-
-	const handleSeeClick = () => {
-		setShowListTask(elem => !elem)
 	}
 
 	useEffect(() => {
-		authUser()
 		getItemsList()
 		setActive(true)
 	}, [])
@@ -56,7 +37,7 @@ const About: React.FC = () => {
 		<>
 			<div className={style.wrapper}>
 				<h1>USER LIST</h1>
-				<h1>user:{userObj.name}</h1>
+				<h1>user:{userParams.name}</h1>
 
 				{listUsers.length == 0 ? (
 					<div className={style.empty}>
@@ -81,14 +62,21 @@ const About: React.FC = () => {
 										key={item.id}
 										name={String(item.id)}
 										className={style.button}
-										onClick={() => handleSeeClick()}
+										onClick={() =>
+											setShowListTask(
+												showListTask.hasOwnProperty(item.id)
+													? {
+															...showListTask,
+															[item.id]: !showListTask[item.id],
+													  }
+													: { ...showListTask, [item.id]: true }
+											)
+										}
 									>
 										SEE
 									</button>
 								</div>
-
-								{showListTask && <ListTask item={item.id} />}
-								<div className={style.line}></div>
+								{showListTask[item.id] ? <ListTask item={item.id} /> : null}
 							</div>
 						))}
 					</div>

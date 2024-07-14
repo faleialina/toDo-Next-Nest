@@ -1,36 +1,27 @@
 'use client'
 import Inputs from '@/components/Inputs/Inputs'
 import axios from 'axios'
-import { useReducer, useState } from 'react'
-import redirectReducer from '../components/RedirectReducer/RedirectReducer'
+import { useState } from 'react'
 import style from './page.module.scss'
 
 const Main: React.FC = () => {
 	const [inp, setInp] = useState({})
 	const array = ['email', 'pwd']
 
-	const [redirect, dispatchRedirect] = useReducer(redirectReducer, '')
-
 	async function authUser() {
 		try {
-			const result = await axios.post(
+			const result: any = await axios.post(
 				'http://localhost:5000/auth/authenticate',
 				inp
 			)
-			window.location.href = `/home/${result.data.id}`
+			localStorage.setItem('userParams', JSON.stringify(result.data))
+			window.location.href = `/home`
 		} catch (error: any) {
 			console.log(error.message)
 			alert('Введены некорректные данные')
 		}
 	}
 
-	// const handleRedirectHome = () => {
-	// 	dispatchRedirect({ type: 'REDIRECT_HOME' })
-	// }
-
-	// const handleRedirectRegistration = () => {
-	// 	dispatchRedirect({ type: 'REDIRECT_REGISTRATION' })
-	// }
 	return (
 		<div>
 			<div className={style.authpage}>

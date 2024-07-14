@@ -1,7 +1,8 @@
-const routes = [
+const routes=[
 	{ name: 'Home', url: '/home' },
-	{ name: 'About', url: '/about' },
+	{ name: 'About', url: `/about` },
 	{ name: 'Registration', url: '/registration' },
-	{ name: 'Authorization', url: '/' },
+	{ name: 'Authorization', url: '/' }
 ]
+
 export default routes
