@@ -3,6 +3,7 @@ export interface iTask {
 	title: string
 	description: string
 	isCheck: boolean
+	user_id:string
 }
 
 export interface ModalProps {
@@ -16,4 +17,9 @@ export interface iUser {
 	name: string
 	surname: string
 	pwd: string
+}
+export interface iFollower {
+	id: string
+	user_id: string
+	follower_id: string
 }

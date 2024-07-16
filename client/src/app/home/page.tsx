@@ -17,14 +17,13 @@ const Home: React.FC = () => {
 
 	const [listTasks, setListTasks] = useState<iTask[]>([])
 	const [open, setOpen] = useState<boolean>(false)
-	const [active, setActive] = useState({
+	const [active, setActive] = useState<iTask>({
 		id: '',
 		title: '',
 		user_id: `${userParams.id}`,
 		description: '',
 		isCheck: false,
 	})
-
 
 	function swapCheckbox(index: number) {
 		const updatedTasks = [...listTasks]

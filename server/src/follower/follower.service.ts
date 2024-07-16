@@ -29,9 +29,9 @@ export class FollowerService {
   }
 
   async deleteFollowerService(followerId) {
-    const deletedFollower = await this.followerRepository.delete({ id: followerId });
+    const deletedTask = await this.followerRepository.delete({ id: followerId });
 
-    return deletedFollower;
+    return deletedTask;
   }
 
   async updateFollowerService(followerId, data) {

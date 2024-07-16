@@ -27,8 +27,9 @@ $purple_ligth_color: #c3c1e5;
 	margin: 0 auto;
 
 	h1 {
-		color: black;
+		color: #474747;
 		font: 500 26px Kanit;
+		margin-top: 15px;
 	}
 
 	.header {
@@ -87,6 +88,7 @@ $purple_ligth_color: #c3c1e5;
 
 	.toDoListItems {
 		@include flex(column, center, 15px);
+		margin-top: 15px;
 
 		.todoItemWrap {
 			.todoItem {
