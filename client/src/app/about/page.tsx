@@ -115,8 +115,8 @@ const About: React.FC = () => {
 									<Image
 										className={style.img}
 										src={photoAvatar}
-										width={50}
-										height={50}
+										width={60}
+										height={60}
 										alt='img'
 									/>
 
