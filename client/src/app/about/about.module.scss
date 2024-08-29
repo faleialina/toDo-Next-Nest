@@ -27,7 +27,7 @@ $purple_ligth_color: #c3c1e5;
 	margin: 0 auto;
 
 	h1 {
-		color:#474747;
+		color: #474747;
 		font: 500 26px Kanit;
 		margin-top: 15px;
 	}
@@ -55,7 +55,7 @@ $purple_ligth_color: #c3c1e5;
 		.todoItemWrap {
 			@include flex(column, center, 15px);
 			.todoItem {
-				@include flex(row, center, 15px);
+				@include flex(row, center, 25px);
 				width: 520px;
 
 				button {
@@ -65,9 +65,13 @@ $purple_ligth_color: #c3c1e5;
 					font: 500 16px Kanit;
 					cursor: grab;
 				}
+				.img {
+					object-fit: cover;
+					border-radius: 50%;
+				}
 
 				.def {
-					&:nth-child(2) {
+					&:nth-child(4) {
 						width: 256px;
 						color: black;
 						font: 500 20px Kanit;

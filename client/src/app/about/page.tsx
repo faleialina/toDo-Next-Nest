@@ -2,7 +2,9 @@
 import ListTask from '@/components/ListTask/ListTask'
 import { iFollower, iUser } from '@/interfaces'
 import axios from 'axios'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import photoAvatar from '../assets/photoAvatar.jpg'
 import style from './about.module.scss'
 
 const About: React.FC = () => {
@@ -38,7 +40,8 @@ const About: React.FC = () => {
 	}
 
 	const deleteFollower = async (id: number) => {
-		const userFal = (userFollower?.filter((el: any) => el.follower_id == id))[0].id
+		const userFal = (userFollower?.filter((el: any) => el.follower_id == id))[0]
+			.id
 		const res: any = await axios.delete(
 			`http://localhost:5000/follower/${userFal}`
 		)
@@ -67,7 +70,9 @@ const About: React.FC = () => {
 						{listUsers.map((item, index) => (
 							<div className={style.todoItemWrap} key={item.id}>
 								<div className={style.todoItem} key={item.id}>
-									{userFollower.some((el: iFollower) => el.follower_id == item.id) ? (
+									{userFollower.some(
+										(el: iFollower) => el.follower_id == item.id
+									) ? (
 										<button
 											className={style.button}
 											key={item.id}
@@ -106,6 +111,14 @@ const About: React.FC = () => {
 											subscribe
 										</button>
 									)}
+
+									<Image
+										className={style.img}
+										src={photoAvatar}
+										width={50}
+										height={50}
+										alt='img'
+									/>
 
 									<p className={style.def}>{item.name}</p>
 									<p className={style.def}>{item.surname}</p>
