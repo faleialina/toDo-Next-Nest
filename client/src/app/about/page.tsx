@@ -59,7 +59,14 @@ const About: React.FC = () => {
 		<>
 			<div className={style.wrapper}>
 				<h1>USER LIST</h1>
-				<h1>user:{userParams.name}</h1>
+				<Image
+					className={style.img}
+					src={photoAvatar}
+					width={50}
+					height={50}
+					alt='img'
+				/>
+				<h1>user: {userParams.name}</h1>
 
 				{listUsers.length == 0 ? (
 					<div className={style.empty}>
@@ -115,8 +122,8 @@ const About: React.FC = () => {
 									<Image
 										className={style.img}
 										src={photoAvatar}
-										width={60}
-										height={60}
+										width={50}
+										height={50}
 										alt='img'
 									/>
 
@@ -126,7 +133,6 @@ const About: React.FC = () => {
 										<button
 											key={item.id}
 											name={String(item.id)}
-											className={style.button}
 											onClick={() =>
 												setShowListTask(
 													showListTask.hasOwnProperty(item.id)

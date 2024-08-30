@@ -16,11 +16,6 @@ $purple_ligth_color: #c3c1e5;
 	padding: $pad;
 }
 
-@mixin img() {
-	background-repeat: no-repeat;
-	background-size: contain;
-}
-
 .wrapper {
 	@include flex(column, center, 0);
 	width: 750px;
@@ -28,8 +23,12 @@ $purple_ligth_color: #c3c1e5;
 
 	h1 {
 		color: #474747;
-		font: 500 26px Kanit;
+		font: 700 26px Kanit;
 		margin-top: 15px;
+	}
+	.img {
+		object-fit: cover;
+		border-radius: 50%;
 	}
 
 	.empty {
@@ -56,14 +55,20 @@ $purple_ligth_color: #c3c1e5;
 			@include flex(column, center, 15px);
 			.todoItem {
 				@include flex(row, center, 25px);
-				width: 520px;
+				width: 900px;
 
 				button {
 					@include input_btn(1px solid $purple_color, 5px, 10px 15px);
+					width: 100px;
 					background-color: $purple_color;
 					color: $white_color;
 					font: 500 16px Kanit;
 					cursor: grab;
+					&:active {
+						border-color: $purple_color;
+						background-color: $white_color;
+						color: $purple_color;
+					}
 				}
 				.img {
 					object-fit: cover;
@@ -73,13 +78,14 @@ $purple_ligth_color: #c3c1e5;
 				.def {
 					&:nth-child(4) {
 						width: 256px;
+						align-items: start;
 						color: black;
 						font: 500 20px Kanit;
 						text-transform: uppercase;
 					}
 
 					&:nth-child(3) {
-						width: 389px;
+						width: 289px;
 						color: $purple_ligth_color;
 						font: 500 20px Kanit;
 						text-transform: uppercase;
